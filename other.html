@@ -1,0 +1,1766 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ideas</title>
+<style type="text/css">
+    li { list-style: none;  margin: 0; }
+    p { margin: 0; }
+    span.foldopened { color: white; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: visible;
+    cursor:pointer; }
+
+
+    span.foldclosed { color: #666666; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: hidden;
+    cursor:pointer; }
+
+    span.foldspecial { color: #666666; font-size: xx-small; border-style: none solid solid none;
+    border-color: #CCCCCC; border-width: 1; font-family: sans-serif; padding: 0em 0.1em 0em 0.1em; background: #e0e0e0;
+    cursor:pointer; }
+
+    span.l { color: red; font-weight: bold; }
+
+    a.mapnode:link {text-decoration: none; color: black; }
+    a.mapnode:visited {text-decoration: none; color: black; }
+    a.mapnode:active {text-decoration: none; color: black; }
+    a.mapnode:hover {text-decoration: none; color: black; background: #eeeee0; }
+
+</style>
+<!-- ^ Position is not set to relative / absolute here because of Mozilla -->
+</head>
+<body>
+
+<script type="text/javascript">
+   // Here we implement folding. It works fine with MSIE5.5, MSIE6.0 and
+   // Mozilla 0.9.6.
+
+   if (document.layers) {
+      //Netscape 4 specific code
+      pre = 'document.';
+      post = ''; }
+   if (document.getElementById) {
+      //Netscape 6 specific code
+      pre = 'document.getElementById("';
+      post = '").style'; }
+   if (document.all) {
+      //IE4+ specific code
+      pre = 'document.all.';
+      post = '.style'; }
+
+function layer_exists(layer) {
+   try {
+      eval(pre + layer + post);
+      return true; }
+   catch (error) {
+      return false; }}
+
+function show_layer(layer) {
+   eval(pre + layer + post).position = 'relative'; 
+   eval(pre + layer + post).visibility = 'visible'; }
+
+function hide_layer(layer) {
+   eval(pre + layer + post).visibility = 'hidden';
+   eval(pre + layer + post).position = 'absolute'; }
+
+function hide_folder(folder) {
+    hide_folding_layer(folder)
+    show_layer('show'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function show_folder(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_layer('show'+folder+'_'+i); }
+}
+function show_folder_completely(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+
+
+function hide_folding_layer(folder) {
+   var i;
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folding_layer(folder+'_'+i); }
+
+   hide_layer('hide'+folder);
+   hide_layer('show'+folder);
+   hide_layer('fold'+folder);
+
+   scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function fold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folder(folder+'_'+i); }
+}
+
+function unfold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+</script>
+<SPAN class="foldspecial" onclick="fold_document()">All +</SPAN>
+<SPAN class="foldspecial" onclick="unfold_document()">All -</SPAN>
+<p>ideas
+<ul><li><span id="show1_1" class="foldclosed" onClick="show_folder('1_1')" style="POSITION: absolute">+</span> <span id="hide1_1" class="foldopened" onClick="hide_folder('1_1')">-</span>
+erpOdoo
+<ul id="fold1_1" style="POSITION: relative; VISIBILITY: visible;"><li>adapt odoo to bolivia
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_2" class="foldclosed" onClick="show_folder('1_2')" style="POSITION: absolute">+</span> <span id="hide1_2" class="foldopened" onClick="hide_folder('1_2')">-</span>
+erpPrestashop
+<ul id="fold1_2" style="POSITION: relative; VISIBILITY: visible;"><li>add erp capabilities to prestashop
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_3" class="foldclosed" onClick="show_folder('1_3')" style="POSITION: absolute">+</span> <span id="hide1_3" class="foldopened" onClick="hide_folder('1_3')">-</span>
+<span style="font-family: Monospaced, sans-serif; ">edu</span>
+<ul id="fold1_3" style="POSITION: relative; VISIBILITY: visible;"><li>no prototype yet
+
+</li>
+<li><span id="show1_3_1" class="foldclosed" onClick="show_folder('1_3_1')" style="POSITION: absolute">+</span> <span id="hide1_3_1" class="foldopened" onClick="hide_folder('1_3_1')">-</span>
+video
+<ul id="fold1_3_1" style="POSITION: relative; VISIBILITY: visible;"><li>Anant Agarwal_ Why massively open online courses (still) matter
+
+</li>
+<li>Extra Credits_ Gamifying Education
+
+</li>
+<li>Sir Ken Robinson_ Do schools kill creativity
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>projectManager html5 canvas based
+
+</li>
+<li><span id="show1_4" class="foldclosed" onClick="show_folder('1_4')" style="POSITION: absolute">+</span> <span id="hide1_4" class="foldopened" onClick="hide_folder('1_4')">-</span>
+celuExpo
+<ul id="fold1_4" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_4_1" class="foldclosed" onClick="show_folder('1_4_1')" style="POSITION: absolute">+</span> <span id="hide1_4_1" class="foldopened" onClick="hide_folder('1_4_1')">-</span>
+plan
+<ul id="fold1_4_1" style="POSITION: relative; VISIBILITY: visible;"><li>formulate idea
+<ul><li>virtual expo
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_4_1_1" class="foldclosed" onClick="show_folder('1_4_1_1')" style="POSITION: absolute">+</span> <span id="hide1_4_1_1" class="foldopened" onClick="hide_folder('1_4_1_1')">-</span>
+most basic features
+<ul id="fold1_4_1_1" style="POSITION: relative; VISIBILITY: visible;"><li>virtual zoomable map of stands
+
+</li>
+<li>basic info of product or service
+
+</li>
+<li>gallery of pictures
+
+</li>
+<li>real time chat
+
+</li>
+<li>manual registration, payment, an asset
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_4_1_2" class="foldclosed" onClick="show_folder('1_4_1_2')" style="POSITION: absolute">+</span> <span id="hide1_4_1_2" class="foldopened" onClick="hide_folder('1_4_1_2')">-</span>
+later features
+<ul id="fold1_4_1_2" style="POSITION: relative; VISIBILITY: visible;"><li>automated registration, payment
+
+</li>
+<li>augmented reality demo of product
+
+</li>
+<li>virtual reality expo
+
+</li>
+<li>3d visualization of expo
+
+</li>
+<li>free expo for schools
+
+</li>
+<li>expo for universities
+
+</li>
+<li>certificates
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_4_1_3" class="foldclosed" onClick="show_folder('1_4_1_3')" style="POSITION: absolute">+</span> <span id="hide1_4_1_3" class="foldopened" onClick="hide_folder('1_4_1_3')">-</span>
+present the idea by making a prototype
+<ul id="fold1_4_1_3" style="POSITION: relative; VISIBILITY: visible;"><li>user
+<ul><li>zoomable map
+
+</li>
+<li>stand info, gallery
+
+</li>
+<li>private realtime chat
+
+</li>
+
+</ul>
+</li>
+<li>exhibitor
+<ul><li>choose and pay for stand
+
+</li>
+<li>edit stand info, gallery
+
+</li>
+<li>real time chat
+
+</li>
+<li>analytics info, visits, offline messages, etc.
+
+</li>
+
+</ul>
+</li>
+<li>admin
+<ul><li>approve exhibitor
+
+</li>
+<li>analytics info
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>iterate until basic features are complete
+
+</li>
+<li>make semi-automatic end-to-end tests as features are developed
+
+</li>
+<li>logs for every process from start to finish
+
+</li>
+<li>add later features as needed
+
+</li>
+<li>have stable and beta services
+
+</li>
+<li>tooltip help
+
+</li>
+<li>git code repository
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_4_2" class="foldclosed" onClick="show_folder('1_4_2')" style="POSITION: absolute">+</span> <span id="hide1_4_2" class="foldopened" onClick="hide_folder('1_4_2')">-</span>
+celuExpo
+<ul id="fold1_4_2" style="POSITION: relative; VISIBILITY: visible;"><li>virtual expo for business
+
+</li>
+<li>AR show products
+
+</li>
+<li>free expo for schools
+
+</li>
+<li>expo for universities, they pay for certificate
+
+</li>
+<li>1st 2nd and 3rd place certificate
+
+</li>
+<li>spaces on biding
+
+</li>
+<li>an expo every month
+
+</li>
+<li>for best left out expositors a special space
+
+</li>
+<li>top voted spaces
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_5" class="foldclosed" onClick="show_folder('1_5')" style="POSITION: absolute">+</span> <span id="hide1_5" class="foldopened" onClick="hide_folder('1_5')">-</span>
+celuMedic
+<ul id="fold1_5" style="POSITION: relative; VISIBILITY: visible;"><li>list diseases
+
+</li>
+<li>list symptoms
+
+</li>
+<li>identify possible problems
+
+</li>
+<li>diy laboratories
+
+</li>
+<li>diy medicine/drugs/treatment
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_6" class="foldclosed" onClick="show_folder('1_6')" style="POSITION: absolute">+</span> <span id="hide1_6" class="foldopened" onClick="hide_folder('1_6')">-</span>
+celuCoin
+<ul id="fold1_6" style="POSITION: relative; VISIBILITY: visible;"><li>crypto/distributed/non-centralized coin
+
+</li>
+<li>value exchange without banks or fiat money
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_7" class="foldclosed" onClick="show_folder('1_7')" style="POSITION: absolute">+</span> <span id="hide1_7" class="foldopened" onClick="hide_folder('1_7')">-</span>
+360 video
+<ul id="fold1_7" style="POSITION: relative; VISIBILITY: visible;"><li><a href="https://www.youtube.com/watch?v=W5OgQaFaWKs" target="_blank"><span class=l>~</span>&nbsp;https://www.youtube.com/watch?v=W5OgQaFaWKs
+</a>
+
+</li>
+<li><a href="http://www.bublcam.com/bublcam-buy-now/" target="_blank"><span class=l>~</span>&nbsp;bublcam.com &gt; Bublcam-buy-now
+</a>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_8" class="foldclosed" onClick="show_folder('1_8')" style="POSITION: absolute">+</span> <span id="hide1_8" class="foldopened" onClick="hide_folder('1_8')">-</span>
+celuChat
+<ul id="fold1_8" style="POSITION: relative; VISIBILITY: visible;"><li>chat app without words, express what you want with preset images, audio, video, interactivity
+
+</li>
+<li>and like apple watch let user draw doodles, make music, sounds, vibrations
+
+</li>
+<li>may include insults/piropos/frases generator
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_9" class="foldclosed" onClick="show_folder('1_9')" style="POSITION: absolute">+</span> <span id="hide1_9" class="foldopened" onClick="hide_folder('1_9')">-</span>
+celuNeXus
+<ul id="fold1_9" style="POSITION: relative; VISIBILITY: visible;"><li>web only interface
+
+</li>
+<li>categories
+<ul><li><p>default: self, couple, family, friends, neighborhood, school, university, job, city, country, planet, universe
+</li>
+</ul>
+</li>
+<li>problems within categories
+<ul><li>list problems personal or public within categories
+
+</li>
+<li>choose a template/guide/predefined/previous problem if any
+
+</li>
+<li>learn about the problem, its actors, its context
+<ul><li>propose subjects to understand the problem
+
+</li>
+
+</ul>
+</li>
+<li>link to other related problems
+
+</li>
+<li>propose solutions within point of views
+<ul><li>create a solution plan
+
+</li>
+<li>propose subjects to learn about the plan with in each solution
+
+</li>
+<li>propose projects to implement the plan within each solution
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>alternative: celuedu/celuayuda/celuproblemas/celupuntos &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(integrate the four of them)
+<ul><li>present the problems (celuproblemas )
+
+</li>
+<li>present incentives ( celupuntos, celuayuda )
+
+</li>
+<li>learn, collaborate to discover the solution ( celuedu )
+
+</li>
+<li>present the solution free ( utopia )
+
+</li>
+<li>use obtained incentive to new problems ( utopia )
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_10" class="foldclosed" onClick="show_folder('1_10')" style="POSITION: absolute">+</span> <span id="hide1_10" class="foldopened" onClick="hide_folder('1_10')">-</span>
+hippo
+<ul id="fold1_10" style="POSITION: relative; VISIBILITY: visible;"><li>plan for prestashop store
+
+</li>
+<li>hippo.dymconsult.com
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_11" class="foldclosed" onClick="show_folder('1_11')" style="POSITION: absolute">+</span> <span id="hide1_11" class="foldopened" onClick="hide_folder('1_11')">-</span>
+gamedev
+<ul id="fold1_11" style="POSITION: relative; VISIBILITY: visible;"><li>prototype for indie game developer company
+
+</li>
+<li>for-profit
+
+</li>
+<li>no office
+
+</li>
+<li>remote developers only
+
+</li>
+<li><span id="show1_11_1" class="foldclosed" onClick="show_folder('1_11_1')" style="POSITION: absolute">+</span> <span id="hide1_11_1" class="foldopened" onClick="hide_folder('1_11_1')">-</span>
+hire only consultants
+<ul id="fold1_11_1" style="POSITION: relative; VISIBILITY: visible;"><li>pay a salary
+
+</li>
+<li>pay a share of the sales
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_11_2" class="foldclosed" onClick="show_folder('1_11_2')" style="POSITION: absolute">+</span> <span id="hide1_11_2" class="foldopened" onClick="hide_folder('1_11_2')">-</span>
+recommended tools
+<ul id="fold1_11_2" style="POSITION: relative; VISIBILITY: visible;"><li>linux
+
+</li>
+<li>unity3d
+
+</li>
+<li>unreal
+
+</li>
+<li>blender
+
+</li>
+<li>gimp
+
+</li>
+<li>google calendar
+
+</li>
+<li>google hangouts
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_11_3" class="foldclosed" onClick="show_folder('1_11_3')" style="POSITION: absolute">+</span> <span id="hide1_11_3" class="foldopened" onClick="hide_folder('1_11_3')">-</span>
+maybe
+<ul id="fold1_11_3" style="POSITION: relative; VISIBILITY: visible;"><li>everyone can submit a game
+
+</li>
+<li>crowd funding features
+
+</li>
+
+</ul>
+</li>
+<li>games company
+<ul><li>for dev
+
+</li>
+<li><span id="show1_11_4" class="foldclosed" onClick="show_folder('1_11_4')" style="POSITION: absolute">+</span> <span id="hide1_11_4" class="foldopened" onClick="hide_folder('1_11_4')">-</span>
+for sell hardware/software
+<ul id="fold1_11_4" style="POSITION: relative; VISIBILITY: visible;"><li>traditional game store
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_11_5" class="foldclosed" onClick="show_folder('1_11_5')" style="POSITION: absolute">+</span> <span id="hide1_11_5" class="foldopened" onClick="hide_folder('1_11_5')">-</span>
+showroom
+<ul id="fold1_11_5" style="POSITION: relative; VISIBILITY: visible;"><li>a showroom store
+
+</li>
+<li>that allows to test lastest technology
+
+</li>
+<li>allows to buy a complete set of tv, console, etc
+
+</li>
+<li><span id="show1_11_5_1" class="foldclosed" onClick="show_folder('1_11_5_1')" style="POSITION: absolute">+</span> <span id="hide1_11_5_1" class="foldopened" onClick="hide_folder('1_11_5_1')">-</span>
+an alternative to movie theather
+<ul id="fold1_11_5_1" style="POSITION: relative; VISIBILITY: visible;"><li>watch a movie or play a game on a private room with the best technology
+
+</li>
+<li>allow renting for a month everyday for a fee like a gym
+
+</li>
+
+</ul>
+</li>
+<li>also a place for eSports
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_12" class="foldclosed" onClick="show_folder('1_12')" style="POSITION: absolute">+</span> <span id="hide1_12" class="foldopened" onClick="hide_folder('1_12')">-</span>
+celuConcert
+<ul id="fold1_12" style="POSITION: relative; VISIBILITY: visible;"><li>interactive
+
+</li>
+<li>no main artist
+
+</li>
+<li>the music is created, or remixed by the spectators
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_13" class="foldclosed" onClick="show_folder('1_13')" style="POSITION: absolute">+</span> <span id="hide1_13" class="foldopened" onClick="hide_folder('1_13')">-</span>
+celuNews
+<ul id="fold1_13" style="POSITION: relative; VISIBILITY: visible;"><li>app for news create a new story, written, tv, radio program with your cell phone
+
+</li>
+<li>share with everyone
+
+</li>
+<li>aggregate this news on a news portal
+
+</li>
+<li>aggregate tv, radio programs on personalized channels
+<ul><li>like a local based youtube with podcasts and written articales
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_14" class="foldclosed" onClick="show_folder('1_14')" style="POSITION: absolute">+</span> <span id="hide1_14" class="foldopened" onClick="hide_folder('1_14')">-</span>
+celuVote
+<ul id="fold1_14" style="POSITION: relative; VISIBILITY: visible;"><li>distributed vote system
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_15" class="foldclosed" onClick="show_folder('1_15')" style="POSITION: absolute">+</span> <span id="hide1_15" class="foldopened" onClick="hide_folder('1_15')">-</span>
+celuMarket
+<ul id="fold1_15" style="POSITION: relative; VISIBILITY: visible;"><li>simple sell/buy app
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_16" class="foldclosed" onClick="show_folder('1_16')" style="POSITION: absolute">+</span> <span id="hide1_16" class="foldopened" onClick="hide_folder('1_16')">-</span>
+celuAyuda
+<ul id="fold1_16" style="POSITION: relative; VISIBILITY: visible;"><li><a href="https://crowdin.com/" target="_blank"><span class=l>~</span>&nbsp;https://crowdin.com/
+</a>
+
+</li>
+<li>bountysource.com
+
+</li>
+<li>Amazon Mechanical Turk
+
+</li>
+<li><span id="show1_16_1" class="foldclosed" onClick="show_folder('1_16_1')" style="POSITION: absolute">+</span> <span id="hide1_16_1" class="foldopened" onClick="hide_folder('1_16_1')">-</span>
+celuAyuda
+<ul id="fold1_16_1" style="POSITION: relative; VISIBILITY: visible;"><li>ask for help anonymously paying with points
+
+</li>
+<li>register as helper with bank account
+
+</li>
+<li>get paid for helping people
+
+</li>
+<li>first name is shown for helpers and a fictional last name
+
+</li>
+<li>fictional name for askers only
+
+</li>
+<li>realtime collaboration with one or more helpers
+
+</li>
+<li>the chat is public
+
+</li>
+<li>askers can filter helpers by gender rating etc
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_17" class="foldclosed" onClick="show_folder('1_17')" style="POSITION: absolute">+</span> <span id="hide1_17" class="foldopened" onClick="hide_folder('1_17')">-</span>
+eTicket
+<ul id="fold1_17" style="POSITION: relative; VISIBILITY: visible;"><li>Necesitariamos ese esquema de funcionalidad para ver la parte tecnica
+
+</li>
+<li>Pero segun la base del servicio que nos envio supongo que seria algo asi
+
+</li>
+<li>1. El cliente descarga la app o ingresa a la pagina
+
+</li>
+<li>2. Para usar el servicio el cliente se deberia registrar
+<ul><li>Mas o menos como se hace en whatsapp
+
+</li>
+<li>Asi se evitaria el abuso, de por ejemplo alguien pida 10 tickets seguidos
+<ul><li>Se sabria quien es y se lo bloquearia
+
+</li>
+
+</ul>
+</li>
+<li>El cliente pondria su numero de celular y se le enviaria un sms de comprobacion
+
+</li>
+<li>Luego podria asociar ese numero a su cuenta de banco, carnet de identidad, etc.
+
+</li>
+<li>Segun estos datos se habilitarian servicios como
+<ul><li>Plataforma, Caja, Persona de la tecera edad, etc.
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>3. Se obtiene su ubicacion por GPS
+<ul><li>Si no activa su GPS, tarda mucho o entra desde la pagina web
+<ul><li>Se despliega la lista de paises/ciudades donde hay el servicio
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>4. El usuario es geolocalizado o elige la ciudad donde se encuentra de una lista
+
+</li>
+<li>5. Se muestra en el mapa los bancos/agencias mas cercanas
+<ul><li>Al hacer click en alguna, se desplegaria esta informacion:
+<ul><li>Si esta actualmente abierto o cerrado
+
+</li>
+<li>Horarios de atencion
+
+</li>
+<li>Se puede ver el estado: vacia, normal, llena
+
+</li>
+<li>Informacion adicional: promociones, requisitos de prestamo, etc.
+<ul><li>la informacion seria solo superficial y directa
+
+</li>
+<li>para mas informacion se tendria que ir al banco o visitar su pagina web
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>6. Luego de elegir el banco el cliente puede solicitar su eTicket
+<ul><li>Segun el banco existirian varios tipos de ticket
+<ul><li>Plataforma, Cajas, Cliente, Persona de Tercera Edad, etc.
+
+</li>
+<li>Dependiendo tambien como realizo su registro
+<ul><li>si enlazo su cuenta de banco, etc.
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>7. Se genera un codigo unico segun las opcione que eligio
+
+</li>
+<li>8. Se apersona al banco
+
+</li>
+<li>9. Ingresa su codigo en la dispensadora
+<ul><li>Ya sea con NFC
+
+</li>
+<li>Mostrando el codigo QR de su ticket
+
+</li>
+<li>Ingresado manualmente su codigo en la dispensadora
+
+</li>
+
+</ul>
+</li>
+<li>10. Obtiene su ticket fisico de la dispensadora
+<ul><li>La dispensadora comprueba la validez del codigo
+<ul><li>y emite el ticket fisico
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>11. El usuario espera su turno
+
+</li>
+<li>Seguridad
+
+</li>
+<li>Ya que cualquiera puede ver que tan lleno esta un banco/agencia
+<ul><li>eso podria facilitar organizar un asaltar el banco
+
+</li>
+<li>incluso desde otro pais
+
+</li>
+<li>esto seria muy dificil evitar
+<ul><li>ya que esta informacion es publica
+
+</li>
+<li>inluso si se restringe a clientes del banco
+
+</li>
+<li>cualquier se puede volver cliente y acceder a esta informacion
+
+</li>
+
+</ul>
+</li>
+<li>de todas manera ahora es posible ver si el banco esta lleno o vacio
+<ul><li>pero se tiene que tener a alguien fisicamente en el banco
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_18" class="foldclosed" onClick="show_folder('1_18')" style="POSITION: absolute">+</span> <span id="hide1_18" class="foldopened" onClick="hide_folder('1_18')">-</span>
+celuGov
+<ul id="fold1_18" style="POSITION: relative; VISIBILITY: visible;"><li>app for neighborhood watch
+
+</li>
+<li>also all tools for neighborhood governance
+
+</li>
+<li>neighboardhood as mini goverments
+
+</li>
+<li>laws, issues, use of taxes, security, etc..
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_19" class="foldclosed" onClick="show_folder('1_19')" style="POSITION: absolute">+</span> <span id="hide1_19" class="foldopened" onClick="hide_folder('1_19')">-</span>
+debate app
+<ul id="fold1_19" style="POSITION: relative; VISIBILITY: visible;"><li><a href="http://www.debate.org/" target="_blank"><span class=l>~</span>&nbsp;debate.org
+</a>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_20" class="foldclosed" onClick="show_folder('1_20')" style="POSITION: absolute">+</span> <span id="hide1_20" class="foldopened" onClick="hide_folder('1_20')">-</span>
+own isp
+<ul id="fold1_20" style="POSITION: relative; VISIBILITY: visible;"><li><a href="http://en.wikipedia.org/wiki/Mobile_virtual_network_operator" target="_blank"><span class=l>~</span>&nbsp;en.wikipedia.org &gt; Wiki &gt; Mobile virtual network operator
+</a>
+
+</li>
+<li>bring cheap internet to neighboardhoods
+<ul><li>distrubuted internet access points
+
+</li>
+
+</ul>
+</li>
+<li>oneweb.world
+
+</li>
+<li>offline internet for villages
+<ul><li><a href="https://www.indiegogo.com/projects/lantern-one-device-free-data-from-space-forever" target="_blank"><span class=l>~</span>&nbsp;https://www.indiegogo.com/projects/lantern-one-device-free-data-from-space-forever
+</a>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_21" class="foldclosed" onClick="show_folder('1_21')" style="POSITION: absolute">+</span> <span id="hide1_21" class="foldopened" onClick="hide_folder('1_21')">-</span>
+meat
+<ul id="fold1_21" style="POSITION: relative; VISIBILITY: visible;"><li>a future without the need to harvest plants or animals for food or materials
+
+</li>
+<li>syntetic food and materials
+
+</li>
+<li><span id="show1_21_1" class="foldclosed" onClick="show_folder('1_21_1')" style="POSITION: absolute">+</span> <span id="hide1_21_1" class="foldopened" onClick="hide_folder('1_21_1')">-</span>
+ted videos
+<ul id="fold1_21_1" style="POSITION: relative; VISIBILITY: visible;"><li>Andras Forgacs_ Leather and meat without killing animals
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_22" class="foldclosed" onClick="show_folder('1_22')" style="POSITION: absolute">+</span> <span id="hide1_22" class="foldopened" onClick="hide_folder('1_22')">-</span>
+news web portal
+<ul id="fold1_22" style="POSITION: relative; VISIBILITY: visible;"><li>allow publication of national news
+
+</li>
+<li>like reddit but better 
+
+</li>
+<li>posibility to publish legal announment
+
+</li>
+<li>like publication of lost documents etc
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_23" class="foldclosed" onClick="show_folder('1_23')" style="POSITION: absolute">+</span> <span id="hide1_23" class="foldopened" onClick="hide_folder('1_23')">-</span>
+forum idea
+<ul id="fold1_23" style="POSITION: relative; VISIBILITY: visible;"><li><p>in comments, the avatar profile pictures changes according to the mood of the comment
+<p>the commenter puts the mood of the comment
+<p>and the avatar is preseleted maching the mood
+<p>the commenter include many avatar profile depending on the mood
+<p>or overlay icons are put above the profile like anime, a water drop on top-right meanning trouble for example
+</li>
+</ul>
+</li>
+<li><span id="show1_24" class="foldclosed" onClick="show_folder('1_24')" style="POSITION: absolute">+</span> <span id="hide1_24" class="foldopened" onClick="hide_folder('1_24')">-</span>
+public domain of media, old and new
+<ul id="fold1_24" style="POSITION: relative; VISIBILITY: visible;"><li>video streamming service
+
+</li>
+<li>audio streamming service
+
+</li>
+<li>videogames
+
+</li>
+<li>movies
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_25" class="foldclosed" onClick="show_folder('1_25')" style="POSITION: absolute">+</span> <span id="hide1_25" class="foldopened" onClick="hide_folder('1_25')">-</span>
+local itunes
+<ul id="fold1_25" style="POSITION: relative; VISIBILITY: visible;"><li>service to sell music for individual artist, indie artist, etc.
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_26" class="foldclosed" onClick="show_folder('1_26')" style="POSITION: absolute">+</span> <span id="hide1_26" class="foldopened" onClick="hide_folder('1_26')">-</span>
+custom maps
+<ul id="fold1_26" style="POSITION: relative; VISIBILITY: visible;"><li><a href="http://umap.fluv.io/en/" target="_blank"><span class=l>~</span>&nbsp;umap.fluv.io &gt; En
+</a>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_27" class="foldclosed" onClick="show_folder('1_27')" style="POSITION: absolute">+</span> <span id="hide1_27" class="foldopened" onClick="hide_folder('1_27')">-</span>
+seguimiento
+<ul id="fold1_27" style="POSITION: relative; VISIBILITY: visible;"><li>antenas rfid research
+
+</li>
+<li>rfid for traffic control
+<ul><li>for semaphore control, when to change the lights, smartSemaphore
+
+</li>
+<li>for red light control, police ticketing
+
+</li>
+<li>for accidents, ambulance
+
+</li>
+<li>for police persecution
+
+</li>
+<li>free app for car owners
+
+</li>
+<li>fee for business for the project sustentability
+
+</li>
+<li>goverment surviliance
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_28" class="foldclosed" onClick="show_folder('1_28')" style="POSITION: absolute">+</span> <span id="hide1_28" class="foldopened" onClick="hide_folder('1_28')">-</span>
+celuAppStore
+<ul id="fold1_28" style="POSITION: relative; VISIBILITY: visible;"><li>own android app store without 30% commision, for free/paid(coins) apps
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_29" class="foldclosed" onClick="show_folder('1_29')" style="POSITION: absolute">+</span> <span id="hide1_29" class="foldopened" onClick="hide_folder('1_29')">-</span>
+global social network
+<ul id="fold1_29" style="POSITION: relative; VISIBILITY: visible;"><li>aggregate users from different social networks (google+, twitter)
+
+</li>
+<li>a global, open, free social network
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_30" class="foldclosed" onClick="show_folder('1_30')" style="POSITION: absolute">+</span> <span id="hide1_30" class="foldopened" onClick="hide_folder('1_30')">-</span>
+insults
+<ul id="fold1_30" style="POSITION: relative; VISIBILITY: visible;"><li>app that generates insults, frases celebres, piropos, etc.
+
+</li>
+<li><a href="http://intellisult.com" target="_blank"><span class=l>~</span>&nbsp;intellisult
+</a>
+
+</li>
+<li><a href="https://www.pimsleurapproach.com/insult-generator" target="_blank"><span class=l>~</span>&nbsp;https://www.pimsleurapproach.com/insult-generator
+</a>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_31" class="foldclosed" onClick="show_folder('1_31')" style="POSITION: absolute">+</span> <span id="hide1_31" class="foldopened" onClick="hide_folder('1_31')">-</span>
+la paz city on 3d
+<ul id="fold1_31" style="POSITION: relative; VISIBILITY: visible;"><li>an app to show elevation data on 3d, montains, etc
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_32" class="foldclosed" onClick="show_folder('1_32')" style="POSITION: absolute">+</span> <span id="hide1_32" class="foldopened" onClick="hide_folder('1_32')">-</span>
+backup, data recovery service
+<ul id="fold1_32" style="POSITION: relative; VISIBILITY: visible;"><li>offer backup service using google cloud
+
+</li>
+<li>offer data recovery, by software and hardware methods
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_33" class="foldclosed" onClick="show_folder('1_33')" style="POSITION: absolute">+</span> <span id="hide1_33" class="foldopened" onClick="hide_folder('1_33')">-</span>
+M2M
+<ul id="fold1_33" style="POSITION: relative; VISIBILITY: visible;"><li><a href="http://en.wikipedia.org/wiki/Machine_to_machine" target="_blank"><span class=l>~</span>&nbsp;en.wikipedia.org &gt; Wiki &gt; Machine to machine
+</a>
+
+</li>
+<li>sim-based LBS(Location Based Service)
+<ul><li><a href="http://w-locate.com/products-solutions/ximloc/" target="_blank"><span class=l>~</span>&nbsp;w-locate.com &gt; Products-solutions &gt; Ximloc
+</a>
+
+</li>
+<li><a href="http://web.it.kth.se/~matsbror/exjobb/msc_theses/oskar_thesis_report.pdf" target="_blank"><span class=l>~</span>&nbsp;web.it.kth.se &gt; Matsbror &gt; Exjobb &gt; Msc theses &gt; Oskar thesis report
+</a>
+
+</li>
+<li><a href="https://www.google.com/search?q=SIMRAV&gws_rd=ssl" target="_blank"><span class=l>~</span>&nbsp;https://www.google.com/search?q=SIMRAV&amp;gws_rd=ssl
+</a>
+
+</li>
+<li><a href="http://en.wikipedia.org/wiki/ECall" target="_blank"><span class=l>~</span>&nbsp;en.wikipedia.org &gt; Wiki &gt; ECall
+</a>
+
+</li>
+<li><a href="https://www.google.com/search?q=eUICC&gws_rd=ssl" target="_blank"><span class=l>~</span>&nbsp;https://www.google.com/search?q=eUICC&amp;gws_rd=ssl
+</a>
+
+</li>
+<li><a href="http://www.prlog.org/12429409-simless-unveils-worlds-first-gsm-phone-without-sim-card-slot.html" target="_blank"><span class=l>~</span>&nbsp;prlog.org &gt; 12429409-simless-unveils-worlds-first-gsm-phone-without-sim-card-slot
+</a>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_34" class="foldclosed" onClick="show_folder('1_34')" style="POSITION: absolute">+</span> <span id="hide1_34" class="foldopened" onClick="hide_folder('1_34')">-</span>
+iGoogle-like service
+<ul id="fold1_34" style="POSITION: relative; VISIBILITY: visible;"><li><a href="http://www.protopage.com/" target="_blank"><span class=l>~</span>&nbsp;protopage.com
+</a>
+
+</li>
+<li><a href="http://www.netvibes.com/en" target="_blank"><span class=l>~</span>&nbsp;netvibes.com &gt; En
+</a>
+
+</li>
+<li><a href="https://my.yahoo.com/" target="_blank"><span class=l>~</span>&nbsp;https://my.yahoo.com/
+</a>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_35" class="foldclosed" onClick="show_folder('1_35')" style="POSITION: absolute">+</span> <span id="hide1_35" class="foldopened" onClick="hide_folder('1_35')">-</span>
+virtual goods marketplace
+<ul id="fold1_35" style="POSITION: relative; VISIBILITY: visible;"><li>edit, sculpt 3d objects
+
+</li>
+<li>3d print
+
+</li>
+<li>maki interactive with blocky
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_36" class="foldclosed" onClick="show_folder('1_36')" style="POSITION: absolute">+</span> <span id="hide1_36" class="foldopened" onClick="hide_folder('1_36')">-</span>
+visual programming
+<ul id="fold1_36" style="POSITION: relative; VISIBILITY: visible;"><li>make a visual ide for general programming
+
+</li>
+<li>it should generate haxxe code
+
+</li>
+<li>haxe is use to export to different systems
+
+</li>
+<li>its possible to organize code and zoom it
+
+</li>
+<li><a href="https://developers.google.com/bbolockly/installation/overview" target="_blank"><span class=l>~</span>&nbsp;https://developers.google.com/bbolockly/installation/overview
+</a>
+
+</li>
+<li><a href="http://www.tersus.com/#Id=14" target="_blank"><span class=l>~</span>&nbsp;tersus.com &gt; #Id=14
+</a>
+
+</li>
+<li><a href="http://www.stencyl.com/download/" target="_blank"><span class=l>~</span>&nbsp;stencyl.com &gt; Download
+</a>
+
+</li>
+<li><a href="http://scratch.mit.edu/scratch2download/" target="_blank"><span class=l>~</span>&nbsp;scratch.mit.edu &gt; Scratch2download
+</a>
+
+</li>
+<li><a href="http://www.yawlfoundation.org/" target="_blank"><span class=l>~</span>&nbsp;yawlfoundation.org
+</a>
+
+</li>
+<li><a href="http://webdocs.cs.ualberta.ca/~script/scriptease-ii-downloads/" target="_blank"><span class=l>~</span>&nbsp;webdocs.cs.ualberta.ca &gt; Script &gt; Scriptease-ii-downloads
+</a>
+
+</li>
+<li><a href="http://lavape.sourceforge.net/" target="_blank"><span class=l>~</span>&nbsp;lavape.sourceforge.net
+</a>
+
+</li>
+<li><a href="https://github.com/Microsoft/TouchDevelop" target="_blank"><span class=l>~</span>&nbsp;https://github.com/Microsoft/TouchDevelop
+</a>
+
+</li>
+<li><a href="http://www.subtext-lang.org/" target="_blank"><span class=l>~</span>&nbsp;subtext-lang.org
+</a>
+<ul><li><a href="https://vimeo.com/106073134" target="_blank"><span class=l>~</span>&nbsp;https://vimeo.com/106073134
+</a>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_37" class="foldclosed" onClick="show_folder('1_37')" style="POSITION: absolute">+</span> <span id="hide1_37" class="foldopened" onClick="hide_folder('1_37')">-</span>
+vitual radio station
+<ul id="fold1_37" style="POSITION: relative; VISIBILITY: visible;"><li>own or rent a radio station and allow user to interact and chnage it with a service on the web
+
+</li>
+<li>have a digital dj with computer voice
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_38" class="foldclosed" onClick="show_folder('1_38')" style="POSITION: absolute">+</span> <span id="hide1_38" class="foldopened" onClick="hide_folder('1_38')">-</span>
+reinvent the wheel
+<ul id="fold1_38" style="POSITION: relative; VISIBILITY: visible;"><li>own search engine like google
+
+</li>
+<li>own news like twitter
+
+</li>
+<li>own social network like facebook
+
+</li>
+<li>own chat system like whatsapp
+
+</li>
+<li><span id="show1_38_1" class="foldclosed" onClick="show_folder('1_38_1')" style="POSITION: absolute">+</span> <span id="hide1_38_1" class="foldopened" onClick="hide_folder('1_38_1')">-</span>
+just because, make competing products of the very best internet based apps
+<ul id="fold1_38_1" style="POSITION: relative; VISIBILITY: visible;"><li><p>google, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;twitter, wikipedia, youtube, amazon, linkedin, ebay, reddit, paypal, github, wordpress, pinterest
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_39" class="foldclosed" onClick="show_folder('1_39')" style="POSITION: absolute">+</span> <span id="hide1_39" class="foldopened" onClick="hide_folder('1_39')">-</span>
+open source car
+<ul id="fold1_39" style="POSITION: relative; VISIBILITY: visible;"><li>become a reseller
+<ul><li><a href="https://www.osvehicle.com/" target="_blank"><span class=l>~</span>&nbsp;https://www.osvehicle.com/
+</a>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>home design app to help redesign house, room on 3D ( unreal engine )
+
+</li>
+<li>visit virtual museum with telepresence robot
+
+</li>
+<li>app to help diagnose and offer personalized treatment to user
+
+</li>
+<li>fashion app to choose style virtually on 3D ( ureal engine)
+
+</li>
+<li><span id="show1_40" class="foldclosed" onClick="show_folder('1_40')" style="POSITION: absolute">+</span> <span id="hide1_40" class="foldopened" onClick="hide_folder('1_40')">-</span>
+app for blind people, geolocation with gps, proximity sensor
+<ul id="fold1_40" style="POSITION: relative; VISIBILITY: visible;"><li>share a picture, audio or video and ask a person for help on a task
+<ul><li><a href="http://www.bemyeyes.org/" target="_blank"><span class=l>~</span>&nbsp;bemyeyes.org
+</a>
+
+</li>
+
+</ul>
+</li>
+<li><a href="http://smartcane.saksham.org/" target="_blank"><span class=l>~</span>&nbsp;smartcane.saksham.org
+</a>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_41" class="foldclosed" onClick="show_folder('1_41')" style="POSITION: absolute">+</span> <span id="hide1_41" class="foldopened" onClick="hide_folder('1_41')">-</span>
+app for deaf people, shows the sound around graphically on the cellphone
+<ul id="fold1_41" style="POSITION: relative; VISIBILITY: visible;"><li>as a background app, shows the sound as graphs on the edges
+
+</li>
+<li>the louder the more intense the more the edges iluminate
+
+</li>
+
+</ul>
+</li>
+<li>top11
+
+</li>
+<li><span id="show1_42" class="foldclosed" onClick="show_folder('1_42')" style="POSITION: absolute">+</span> <span id="hide1_42" class="foldopened" onClick="hide_folder('1_42')">-</span>
+&#25925;&#37111;
+<ul id="fold1_42" style="POSITION: relative; VISIBILITY: visible;"><li>create python backend to store eco news
+<ul><li>do the quickstart appengine tutorial
+
+</li>
+<li>create news entity
+
+</li>
+
+</ul>
+</li>
+<li>display good eco news on &#25925;&#37111;
+
+</li>
+<li><span id="show1_42_1" class="foldclosed" onClick="show_folder('1_42_1')" style="POSITION: absolute">+</span> <span id="hide1_42_1" class="foldopened" onClick="hide_folder('1_42_1')">-</span>
+&#25925;&#37111;
+<ul id="fold1_42_1" style="POSITION: relative; VISIBILITY: visible;"><li>unity
+<ul><li>product
+
+</li>
+<li>activity
+
+</li>
+<li>news
+
+</li>
+
+</ul>
+</li>
+<li>appengine.python
+<ul><li>good eco products
+<ul><li>food
+<ul><li>organic ratio
+
+</li>
+<li>carbon foot print ratio
+
+</li>
+<li>sustainability sources ratio
+
+</li>
+
+</ul>
+</li>
+<li>transport
+<ul><li>bicycles
+
+</li>
+<li>electric cars
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>good eco activities
+<ul><li>plant a tree
+<ul><li>where to buy a tree
+
+</li>
+<li>where to plant it
+
+</li>
+<li>how to plant it
+
+</li>
+<li>how to mantain it
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>good eco news
+<ul><li>new solar panel technology
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>_
+<ul><li>recomended life style to protect the planet
+<ul><li>recomended products
+
+</li>
+<li>recomended activities
+<ul><li>step by step activities
+
+</li>
+
+</ul>
+</li>
+<li>news
+
+</li>
+
+</ul>
+</li>
+<li>only show the positives new, activities, products
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_42_2" class="foldclosed" onClick="show_folder('1_42_2')" style="POSITION: absolute">+</span> <span id="hide1_42_2" class="foldopened" onClick="hide_folder('1_42_2')">-</span>
+video
+<ul id="fold1_42_2" style="POSITION: relative; VISIBILITY: visible;"><li>After Earth Google Hangout
+
+</li>
+<li>Al Gore_ New thinking on the climate crisis
+
+</li>
+<li>Gavin Schmidt_ The emergent patterns of climate change
+
+</li>
+<li>George Monbiot_ For more wonder, rewild the world
+
+</li>
+<li>Leyla Acaroglu_ Paper beats plastic_ How to rethink environmental folklore
+
+</li>
+<li>Rose George_ Inside the secret shipping industry
+
+</li>
+<li>Steve Howard_ Let's go all-in on selling sustainability
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_43" class="foldclosed" onClick="show_folder('1_43')" style="POSITION: absolute">+</span> <span id="hide1_43" class="foldopened" onClick="hide_folder('1_43')">-</span>
+task
+<ul id="fold1_43" style="POSITION: relative; VISIBILITY: visible;"><li>Yves Morieux_ As work gets more complex, 6 rules to simplify
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_44" class="foldclosed" onClick="show_folder('1_44')" style="POSITION: absolute">+</span> <span id="hide1_44" class="foldopened" onClick="hide_folder('1_44')">-</span>
+celuNeed
+<ul id="fold1_44" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_44_1" class="foldclosed" onClick="show_folder('1_44_1')" style="POSITION: absolute">+</span> <span id="hide1_44_1" class="foldopened" onClick="hide_folder('1_44_1')">-</span>
+post needs
+<ul id="fold1_44_1" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_44_1_1" class="foldclosed" onClick="show_folder('1_44_1_1')" style="POSITION: absolute">+</span> <span id="hide1_44_1_1" class="foldopened" onClick="hide_folder('1_44_1_1')">-</span>
+alternatives
+<ul id="fold1_44_1_1" style="POSITION: relative; VISIBILITY: visible;"><li>if the user ask for a good then related goods will be shown as suggestions
+
+</li>
+<li>for example if a user needs a computer, as alternative, a tablet or a notebook is offered too
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>post products/services
+
+</li>
+<li>communities
+<ul><li>forum of specific interests
+
+</li>
+<li>like a vegan
+
+</li>
+<li>like computers
+
+</li>
+<li>another user/business can offer products/services to communities
+
+</li>
+<li>forum to discuss communities/market problems/solutions
+
+</li>
+<li>recieve suggestions from clients
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_44_2" class="foldclosed" onClick="show_folder('1_44_2')" style="POSITION: absolute">+</span> <span id="hide1_44_2" class="foldopened" onClick="hide_folder('1_44_2')">-</span>
+quotes
+<ul id="fold1_44_2" style="POSITION: relative; VISIBILITY: visible;"><li>continuos
+<ul><li>if the need is continuos then then quotes will keep arriving
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>user and business are the same, both can post needs or products/services
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_45" class="foldclosed" onClick="show_folder('1_45')" style="POSITION: absolute">+</span> <span id="hide1_45" class="foldopened" onClick="hide_folder('1_45')">-</span>
+celuState
+<ul id="fold1_45" style="POSITION: relative; VISIBILITY: visible;"><li>situations/states
+<ul><li>are
+<ul><li>benefical
+<ul><li>to certain people
+
+</li>
+
+</ul>
+</li>
+<li>problematic
+<ul><li>to certain people
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>list of situations
+<ul><li>list of benefits
+
+</li>
+<li>list of problems
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_45_1" class="foldclosed" onClick="show_folder('1_45_1')" style="POSITION: absolute">+</span> <span id="hide1_45_1" class="foldopened" onClick="hide_folder('1_45_1')">-</span>
+from individual situations to universal situations
+<ul id="fold1_45_1" style="POSITION: relative; VISIBILITY: visible;"><li>personal situations
+
+</li>
+<li>couple situations
+
+</li>
+<li>family situations
+
+</li>
+<li>neibourhood situations
+
+</li>
+<li>city situations
+
+</li>
+<li>country situations
+
+</li>
+<li>wolrd situations
+
+</li>
+<li>solar system situations
+
+</li>
+<li>galaxy situations
+
+</li>
+<li>universe situations
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_46" class="foldclosed" onClick="show_folder('1_46')" style="POSITION: absolute">+</span> <span id="hide1_46" class="foldopened" onClick="hide_folder('1_46')">-</span>
+security
+<ul id="fold1_46" style="POSITION: relative; VISIBILITY: visible;"><li>ip camera
+
+</li>
+<li>portable printer
+
+</li>
+<li>phone on dispatch
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_47" class="foldclosed" onClick="show_folder('1_47')" style="POSITION: absolute">+</span> <span id="hide1_47" class="foldopened" onClick="hide_folder('1_47')">-</span>
+tracking
+<ul id="fold1_47" style="POSITION: relative; VISIBILITY: visible;"><li>phone on driver
+
+</li>
+<li>admin
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_48" class="foldclosed" onClick="show_folder('1_48')" style="POSITION: absolute">+</span> <span id="hide1_48" class="foldopened" onClick="hide_folder('1_48')">-</span>
+route control
+<ul id="fold1_48" style="POSITION: relative; VISIBILITY: visible;"><li>checkpoint phone check
+
+</li>
+<li>admin tracking
+
+</li>
+<li>user control and route information
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_49" class="foldclosed" onClick="show_folder('1_49')" style="POSITION: absolute">+</span> <span id="hide1_49" class="foldopened" onClick="hide_folder('1_49')">-</span>
+celuIdeas
+<ul id="fold1_49" style="POSITION: relative; VISIBILITY: visible;"><li>where new ideas are born
+
+</li>
+<li>a virtual cafe, meeting of ideas and crowdsourcing ( indiegogo, kickstarter, bountysource.com )
+
+</li>
+<li>random idea generator
+<ul><li>generate random words to make a concept
+<ul><li>verb noun for noun
+
+</li>
+<li>bouncing cars for food
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_50" class="foldclosed" onClick="show_folder('1_50')" style="POSITION: absolute">+</span> <span id="hide1_50" class="foldopened" onClick="hide_folder('1_50')">-</span>
+erpOS
+<ul id="fold1_50" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_50_1" class="foldclosed" onClick="show_folder('1_50_1')" style="POSITION: absolute">+</span> <span id="hide1_50_1" class="foldopened" onClick="hide_folder('1_50_1')">-</span>
+client
+<ul id="fold1_50_1" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_50_1_1" class="foldclosed" onClick="show_folder('1_50_1_1')" style="POSITION: absolute">+</span> <span id="hide1_50_1_1" class="foldopened" onClick="hide_folder('1_50_1_1')">-</span>
+qt c++
+<ul id="fold1_50_1_1" style="POSITION: relative; VISIBILITY: visible;"><li>on kiosk mode
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_50_1_2" class="foldclosed" onClick="show_folder('1_50_1_2')" style="POSITION: absolute">+</span> <span id="hide1_50_1_2" class="foldopened" onClick="hide_folder('1_50_1_2')">-</span>
+no hard drive
+<ul id="fold1_50_1_2" style="POSITION: relative; VISIBILITY: visible;"><li>boot from network
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_50_1_3" class="foldclosed" onClick="show_folder('1_50_1_3')" style="POSITION: absolute">+</span> <span id="hide1_50_1_3" class="foldopened" onClick="hide_folder('1_50_1_3')">-</span>
+minimal linux distro
+<ul id="fold1_50_1_3" style="POSITION: relative; VISIBILITY: visible;"><li>arch based
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_50_1_4" class="foldclosed" onClick="show_folder('1_50_1_4')" style="POSITION: absolute">+</span> <span id="hide1_50_1_4" class="foldopened" onClick="hide_folder('1_50_1_4')">-</span>
+boot logo
+<ul id="fold1_50_1_4" style="POSITION: relative; VISIBILITY: visible;"><li>company logo
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_50_1_5" class="foldclosed" onClick="show_folder('1_50_1_5')" style="POSITION: absolute">+</span> <span id="hide1_50_1_5" class="foldopened" onClick="hide_folder('1_50_1_5')">-</span>
+hardware
+<ul id="fold1_50_1_5" style="POSITION: relative; VISIBILITY: visible;"><li>old PCs no harddrive
+
+</li>
+<li>IntelStick+HDMI Monitor+WiFi+UCB/BlueTooh Keyboard/Mouse
+
+</li>
+
+</ul>
+</li>
+<li>no internet needed
+
+</li>
+<li><span id="show1_50_1_6" class="foldclosed" onClick="show_folder('1_50_1_6')" style="POSITION: absolute">+</span> <span id="hide1_50_1_6" class="foldopened" onClick="hide_folder('1_50_1_6')">-</span>
+can read/send email
+<ul id="fold1_50_1_6" style="POSITION: relative; VISIBILITY: visible;"><li>connects to server for that
+
+</li>
+
+</ul>
+</li>
+<li>no virus
+
+</li>
+<li>total control
+
+</li>
+<li><span id="show1_50_1_7" class="foldclosed" onClick="show_folder('1_50_1_7')" style="POSITION: absolute">+</span> <span id="hide1_50_1_7" class="foldopened" onClick="hide_folder('1_50_1_7')">-</span>
+module
+<ul id="fold1_50_1_7" style="POSITION: relative; VISIBILITY: visible;"><li>gammification
+
+</li>
+<li>social media
+
+</li>
+<li>chat
+
+</li>
+<li>forum
+
+</li>
+<li>task
+<ul><li>daily task are listed
+
+</li>
+<li>can collaborate on a task
+
+</li>
+
+</ul>
+</li>
+<li>productivity control
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_50_1_8" class="foldclosed" onClick="show_folder('1_50_1_8')" style="POSITION: absolute">+</span> <span id="hide1_50_1_8" class="foldopened" onClick="hide_folder('1_50_1_8')">-</span>
+mobile
+<ul id="fold1_50_1_8" style="POSITION: relative; VISIBILITY: visible;"><li>qt android
+
+</li>
+<li>vpn to server
+
+</li>
+<li><span id="show1_50_1_8_1" class="foldclosed" onClick="show_folder('1_50_1_8_1')" style="POSITION: absolute">+</span> <span id="hide1_50_1_8_1" class="foldopened" onClick="hide_folder('1_50_1_8_1')">-</span>
+offline version too
+<ul id="fold1_50_1_8_1" style="POSITION: relative; VISIBILITY: visible;"><li>can sync to server later
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_50_2" class="foldclosed" onClick="show_folder('1_50_2')" style="POSITION: absolute">+</span> <span id="hide1_50_2" class="foldopened" onClick="hide_folder('1_50_2')">-</span>
+server
+<ul id="fold1_50_2" style="POSITION: relative; VISIBILITY: visible;"><li>playFramework scala
+
+</li>
+<li>nodejs javascript
+
+</li>
+<li>serve webpage
+
+</li>
+<li>automatic cloud backups
+
+</li>
+<li>only one needed for internet access
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul><SCRIPT type="text/javascript">
+fold_document();
+</SCRIPT>
+</body>
+</html>
